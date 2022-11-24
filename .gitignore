@@ -1,9 +1,4 @@
 __pycache__/
-*.so6
 *.csv
-*.txt
-*.grb2
-*.png
-*.json
 *.iml
 *.xml
