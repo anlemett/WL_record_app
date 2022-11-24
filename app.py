@@ -8,8 +8,8 @@ app = Flask(__name__)
 def index():
     return "Hello!"
 
-#if __name__ == '__main__':
-#    app.run(debug=DEBUG, host=HOST, port=PORT)
+if __name__ == '__main__':
+    app.run(debug=DEBUG)
 
 '''
 from flask import (Flask, render_template, request, redirect, url_for)
