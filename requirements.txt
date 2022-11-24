@@ -27,7 +27,7 @@ netaddr==0.7.19
 netifaces==0.10.4
 oauthlib==3.1.0
 packaging==20.3
-PAM==0.4.2
+PAM==0.2.0
 pexpect==4.6.0
 Pillow==7.0.0
 protobuf==3.6.1
