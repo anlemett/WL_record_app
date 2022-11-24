@@ -62,7 +62,6 @@ soupsieve==1.9.5
 systemd-python==234
 tinycss2==1.0.2
 tldextract==2.2.1
-ubuntu-drivers-common==0.0.0
 ufw==0.36
 Unidecode==1.1.1
 urllib3==1.25.8
