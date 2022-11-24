@@ -1,3 +1,5 @@
+from config import (DEBUG, PORT, HOST)
+
 from flask import Flask
 
 app = Flask(__name__)
@@ -6,12 +8,13 @@ app = Flask(__name__)
 def index():
     return "Hello this is the new version!"
 
+#if __name__ == '__main__':
+#    app.run(debug=DEBUG, host=HOST, port=PORT)
+
 '''
 from flask import (Flask, render_template, request, redirect, url_for)
 
-from config import (DEBUG, PORT, HOST,
-                    OUTPUT_DIR
-                    )
+from config import (DEBUG, PORT, HOST)
 from config import *
 
 import os, glob
