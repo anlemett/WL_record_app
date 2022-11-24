@@ -1,0 +1,4 @@
+
+DEBUG = True
+PORT = 8100
+HOST = '127.0.0.1'
