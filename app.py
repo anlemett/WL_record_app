@@ -1,6 +1,14 @@
-from flask import (Flask, render_template, request, redirect, url_for)
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return "Hello this is the new version!"
 
 '''
+from flask import (Flask, render_template, request, redirect, url_for)
+
 from config import (DEBUG, PORT, HOST,
                     OUTPUT_DIR
                     )
@@ -18,11 +26,11 @@ import numpy as np
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 OUTPUT_DIR = os.path.join(BASE_DIR, os.path.join('data', 'output'))
-'''
+
 
 app = Flask(__name__)
 
-'''
+
 app.config.from_object('config')
 
 if not os.path.exists(OUTPUT_DIR):
@@ -39,11 +47,7 @@ def not_found(error):
 @app.route('/')
 def index():
     return render_template('index.html')
-'''
 
-@app.route("/")
-def index():
-    return "Hello this is the new version!"
 
 #def save_csv(df):
 
@@ -52,3 +56,4 @@ def index():
 
 #if __name__ == '__main__':
 #    app.run(debug=DEBUG, host=HOST, port=PORT)
+'''
