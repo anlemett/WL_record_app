@@ -39,10 +39,10 @@ def index():
 
 
 
-def save_csv(df):
+#def save_csv(df):
 
-    df.to_csv(full_filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
+#    df.to_csv(full_filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
 
 
-if __name__ == '__main__':
-    app.run(debug=DEBUG, host=HOST, port=PORT)
+#if __name__ == '__main__':
+#    app.run(debug=DEBUG, host=HOST, port=PORT)
