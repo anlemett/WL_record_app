@@ -1,24 +1,6 @@
-from config import (DEBUG, PORT, HOST)
-
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/")
-def index():
-    return "Hello!"
-
-if __name__ == '__main__':
-    app.run(debug=DEBUG)
-
-'''
-from flask import (Flask, render_template, request, redirect, url_for)
-
-from config import (DEBUG, PORT, HOST)
-from config import *
-
 import os, glob
 
+from flask import (Flask, render_template, request, redirect, url_for)
 
 from datetime import datetime, time, timedelta
 import pytz
@@ -30,9 +12,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 OUTPUT_DIR = os.path.join(BASE_DIR, os.path.join('data', 'output'))
 
-
 app = Flask(__name__)
-
 
 app.config.from_object('config')
 
@@ -52,11 +32,8 @@ def index():
     return render_template('index.html')
 
 
+
 #def save_csv(df):
+#   df.to_csv(full_filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
 
-#    df.to_csv(full_filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
 
-
-#if __name__ == '__main__':
-#    app.run(debug=DEBUG, host=HOST, port=PORT)
-'''
