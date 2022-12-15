@@ -27,9 +27,37 @@ def not_found(error):
     return render_template('404.html'), 404
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        if request.form['submit_button'] == "Start":
+            print("Start")
+        elif request.form['submit_button'] == "Stop":
+             print("Stop")
+        elif request.form['submit_button'] == "1":
+             print("1")
+        elif request.form['submit_button'] == "2":
+             print("2")
+        elif request.form['submit_button'] == "3":
+                  print("3")
+        elif request.form['submit_button'] == "4":
+             print("4")
+        elif request.form['submit_button'] == "5":
+             print("5")
+        elif request.form['submit_button'] == "6":
+             print("6")
+        elif request.form['submit_button'] == "7":
+             print("7")
+        elif request.form['submit_button'] == "8":
+             print("8")
+        elif request.form['submit_button'] == "9":
+             print("9")
+        elif request.form['submit_button'] == "10":
+             print("10")
+
+        return render_template('index.html')
+    else:
+        return render_template('index.html')
 
 
 

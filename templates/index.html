@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{% block title %}Arlanda{% endblock %}</title>
+        <title>{% block title %}Workload record{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/static/css/main.css"/>
 
@@ -14,30 +14,48 @@
     </head>
     <body>
       <div>
-        <p id="demo"></p>
+        <!--<p id="demo"></p>-->
         
         <script src="/static/js/demo_script_src.js">
         </script>
         
-        <p> <button type="button" id="one"> 1 </button>
-            <button type="button" id="two"> 2 </button>
-            <button type="button" id="three"> 3 </button>
-            <button type="button" id="four"> 4 </button>
-            <button type="button" id="five"> 5 </button>
-            <button type="button" id="six"> 6 </button>
-            <button type="button" id="seven"> 7 </button>
-            <button type="button" id="eight"> 8 </button>
-            <button type="button" id="nine"> 9 </button>
-            <button type="button" id="ten"> 10 </button>
-            <button type="button" id="clear">
-                Clear
-            </button>
-        </p>
-        <p><label>Output</label> <textarea id="output" rows="20" cols="80" readonly></textarea></p>
+        <form method=post>
+        
+            <p>
+                <button type="submit" name="submit_button" value="Start" id="start" class="general"> Start </button>
+            </p>
+        
+            <p> 
+                <button type="submit" name="submit_button" value="1" id="one" class="score">1</button>
+                <button type="submit" name="submit_button" value="2" id="two" class="score"> 2 </button>
+                <button type="submit" name="submit_button" value="3" id="three" class="score"> 3 </button>
+                <button type="submit" name="submit_button" value="4" id="four" class="score"> 4 </button>
+                <button type="submit" name="submit_button" value="5" id="five" class="score"> 5 </button>
+                <button type="submit" name="submit_button" value="6" id="six" class="score"> 6 </button>
+                <button type="submit" name="submit_button" value="7" id="seven" class="score"> 7 </button>
+                <button type="submit" name="submit_button" value="8" id="eight" class="score"> 8 </button>
+                <button type="submit" name="submit_button" value="9" id="nine" class="score"> 9 </button>
+                <button type="submit" name="submit_button" value="10" id="ten" class="score"> 10 </button>
+            </p> 
+            
+            <p>
+                <button type="submit" name="submit_button" value="Stop" id="stop" class="general"> Stop </button>
+            </p>
+
+            
+        </form>
+         
+        <!--<button type  id="clear">
+           Clear
+        </button>
+        
+        <p><label>Output</label> <textarea id="output" rows="20" cols="80" readonly></textarea></p>-->
+        
+
       </div>
 
 
-      <script src="/static/js/read_touch_events.js"></script>
+      <!-- <script src="/static/js/read_touch_events.js"></script>-->
 
     </body>
 </html>
