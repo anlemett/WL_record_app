@@ -32,14 +32,24 @@ def index():
     if request.method == 'POST':
         if request.form['submit_button'] == "Start":
             print("Start")
-        elif request.form['submit_button'] == "Stop":
+
+        return redirect(url_for('workload'))
+    else:
+        return render_template('index.html')
+
+@app.route('/workload', methods=['GET', 'POST'])
+def workload():
+    if request.method == 'POST':
+        if request.form['submit_button'] == "Stop":
              print("Stop")
-        elif request.form['submit_button'] == "1":
+             return render_template('index.html')
+             
+        if request.form['submit_button'] == "1":
              print("1")
         elif request.form['submit_button'] == "2":
              print("2")
         elif request.form['submit_button'] == "3":
-                  print("3")
+             print("3")
         elif request.form['submit_button'] == "4":
              print("4")
         elif request.form['submit_button'] == "5":
@@ -55,11 +65,11 @@ def index():
         elif request.form['submit_button'] == "10":
              print("10")
 
-        return render_template('index.html')
+        return render_template('workload.html', path_to_audio = url_for('static', filename='short2.wav'))
     else:
-        return render_template('index.html')
-
-
+        return render_template('workload.html', path_to_audio = url_for('static', filename='short2.wav'))
+    
+    
 
 #def save_csv(df):
 #   df.to_csv(full_filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
