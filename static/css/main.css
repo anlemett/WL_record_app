@@ -12,11 +12,13 @@ label {
   display: block;
   font-size: 15em;
 }
+
 .score {
+  background-color: #4CAF50; /* Green */
+  color: white;
   align-items: center;
   padding: 40px; 
   margin: 10px;
-  background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   text-align: center;
@@ -27,6 +29,20 @@ label {
   height: 100px;
 }
 
+.score:hover {
+    background-color: bisque;
+}
+
+.score:disabled {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: #cccccc;
+  color: #666666;
+}
 
 .general {
   border: none;

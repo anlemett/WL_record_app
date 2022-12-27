@@ -12,7 +12,6 @@
             <script>window.html5 || document.write('<script src="/static/js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
         
-        
     </head>
     <body>
      
@@ -20,24 +19,106 @@
       <source src={{path_to_audio}} type="audio/wav">
           Your browser does not support the audio element.
       </audio>
-                      
-      <form method=post>
+    
+        <p> 
+        <script type="text/javascript">
+            function delayedSubmit1(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "1"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit2(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "2"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit3(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "3"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit4(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "4"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit5(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "5"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit6(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "6"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit7(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "7"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit8(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "8"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit9(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "9"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function delayedSubmit10(e) {
+                disableButtons() 
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "10"
+                submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 5000)
+            }
+            function submitStop(e) {
+                e.preventDefault() ;
+                document.getElementById("form_hidden_field").value = "Stop"
+                document.getElementById("workloadForm").submit();
+            }
+            function disableButtons() {
+                document.getElementById("one").disabled = true;
+                document.getElementById("two").disabled = true;
+                document.getElementById("three").disabled = true;
+                document.getElementById("four").disabled = true;
+                document.getElementById("five").disabled = true;
+                document.getElementById("six").disabled = true;
+                document.getElementById("seven").disabled = true;
+                document.getElementById("eight").disabled = true;
+                document.getElementById("nine").disabled = true;
+                document.getElementById("ten").disabled = true;
+            }
+        </script>
         
-            <p> 
-                <button type="submit" name="submit_button" value="1" id="one" class="score">1</button>
-                <button type="submit" name="submit_button" value="2" id="two" class="score"> 2 </button>
-                <button type="submit" name="submit_button" value="3" id="three" class="score"> 3 </button>
-                <button type="submit" name="submit_button" value="4" id="four" class="score"> 4 </button>
-                <button type="submit" name="submit_button" value="5" id="five" class="score"> 5 </button>
-                <button type="submit" name="submit_button" value="6" id="six" class="score"> 6 </button>
-                <button type="submit" name="submit_button" value="7" id="seven" class="score"> 7 </button>
-                <button type="submit" name="submit_button" value="8" id="eight" class="score"> 8 </button>
-                <button type="submit" name="submit_button" value="9" id="nine" class="score"> 9 </button>
-                <button type="submit" name="submit_button" value="10" id="ten" class="score"> 10 </button>
+       
+        <form method=post id="workloadForm">
+        
+             <input type="hidden" id="form_hidden_field" name="submit_button" value="">
+             <button type="submit" onclick="delayedSubmit1(event);"  id="one" class="score">1</button>
+             <button type="submit" onclick="delayedSubmit2(event);" id="two" class="score"> 2 </button>
+             <button type="submit" onclick="delayedSubmit3(event);" id="three" class="score"> 3 </button>
+             <button type="submit" onclick="delayedSubmit4(event);" id="four" class="score"> 4 </button>
+             <button type="submit" onclick="delayedSubmit5(event);" id="five" class="score"> 5 </button>
+             <button type="submit" onclick="delayedSubmit6(event);" id="six" class="score"> 6 </button>
+             <button type="submit" onclick="delayedSubmit7(event);" id="seven" class="score"> 7 </button>
+             <button type="submit" onclick="delayedSubmit8(event);" id="eight" class="score"> 8 </button>
+             <button type="submit" onclick="delayedSubmit9(event);" id="nine" class="score"> 9 </button>
+             <button type="submit" onclick="delayedSubmit10(event);" id="ten" class="score"> 10 </button>
             </p> 
             
             <p>
-                <button type="submit" name="submit_button" value="Stop" id="stop" class="general"> Stop </button>
+                <button type="submit" onclick="submitStop(event);" id="stop" class="general"> Stop </button>
             </p>
 
             
@@ -47,8 +128,7 @@
 
 
       <!-- <script src="/static/js/read_touch_events.js"></script>-->
-      <script src="/static/js/demo_script_src.js">
-        </script>
+      <script src="/static/js/demo_script_src.js"> </script>
 
         <script>
         window.onload = (event) => {

@@ -29,17 +29,22 @@ def not_found(error):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
     if request.method == 'POST':
         if request.form['submit_button'] == "Start":
             print("Start")
-
+            
         return redirect(url_for('workload'))
     else:
         return render_template('index.html')
 
+    
 @app.route('/workload', methods=['GET', 'POST'])
 def workload():
+
     if request.method == 'POST':
+        
+        print(request.form)
         if request.form['submit_button'] == "Stop":
              print("Stop")
              return render_template('index.html')
@@ -64,12 +69,14 @@ def workload():
              print("9")
         elif request.form['submit_button'] == "10":
              print("10")
+        else:
+            print("else")
 
         return render_template('workload.html', path_to_audio = url_for('static', filename='short2.wav'))
     else:
         return render_template('workload.html', path_to_audio = url_for('static', filename='short2.wav'))
     
-    
+   
 
 #def save_csv(df):
 #   df.to_csv(full_filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
