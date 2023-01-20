@@ -1,18 +1,18 @@
-import os, glob
+import os
 
-from flask import (Flask, render_template, request, redirect, url_for)
+from flask import (Flask, render_template, request, redirect, url_for, session)
 
-import time as tm
+from datetime import datetime
 
 
 import pandas as pd
-import numpy as np
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 OUTPUT_DIR = os.path.join(BASE_DIR, os.path.join('data', 'output'))
 
 app = Flask(__name__)
+app.secret_key = 'qwerwcwdqgfqwefq'
 
 app.config.from_object('config')
 
@@ -33,9 +33,16 @@ def index():
     if request.method == 'POST':
         if request.form['submit_button'] == "Start":
             print("Start")
+            addr = request.remote_addr.replace(".", "_" )
+            
+            now = datetime.now()
+            date_time = now.strftime("%y%m%d_%H%M%S")
+
+            session['filename'] = addr + '_' + date_time + '.csv'
             
         return redirect(url_for('workload'))
     else:
+        
         return render_template('index.html')
 
     
@@ -82,24 +89,31 @@ def workload():
         else:
             print("else")
 
-        return render_template('workload.html', path_to_audio = url_for('static', filename='short2.wav'))
+        return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'))
     else:
-        return render_template('workload.html', path_to_audio = url_for('static', filename='short2.wav'))
+        return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'))
     
    
 
 def save_csv(score):
-    full_filename = "temp.csv";
-    isExist = os.path.exists(full_filename)
-    if isExist:
-        df = pd.read_csv(full_filename, sep=' ',
-            #names = ['timestamp', 'score'],
-            dtype={'timestamp':int, 'score':int})
-    else:
-        df = pd.DataFrame();
-    ts = round(tm.time());
-    df = df.append({'timestamp': ts, 'score': score}, ignore_index=True)
-    print(df)
-    df.to_csv(full_filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
+    if 'filename' in session:
+        filename = session['filename']
+        isExist = os.path.exists(filename)
+        if isExist:
+            df = pd.read_csv(filename, sep=' ',
+                             #names = ['timestamp', 'score'],
+                             dtype={'timestamp':int, 'score':int})
+        else:
+            df = pd.DataFrame();
+                
+        now = datetime.now()
+        t = now.strftime("%H%M%S")
+        
+        # convert from datetime to timestamp
+        ts = round(datetime.timestamp(now))
+        
+        df = df.append({'time': t, 'timestamp': ts, 'score': score}, ignore_index=True)
+        print(df)
+        df.to_csv(filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
 
 

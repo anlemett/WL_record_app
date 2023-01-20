@@ -13,8 +13,40 @@ label {
   font-size: 15em;
 }
 
-.score {
+.score1 {
   background-color: #4CAF50; /* Green */
+  color: white;
+  align-items: center;
+  padding: 40px; 
+  margin: 10px;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+}
+
+.score2 {
+  background-color: #FFFF5C; /* Yellow */
+  color: white;
+  align-items: center;
+  padding: 40px; 
+  margin: 10px;
+  border: none;
+  color: grey;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+}
+
+.score3 {
+  background-color: #FF5C5C; /* Red */
   color: white;
   align-items: center;
   padding: 40px; 
