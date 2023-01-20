@@ -3,13 +3,13 @@ import os
 from flask import (Flask, render_template, request, redirect, url_for, session)
 
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 import pandas as pd
 
 # TODO:
-# 1. Change time and timestamp to the begining of the interval?
-# 2. Add actual timestamp of pressing the button?
-# 3. Force 10 score saving if the button was not pressed within the interval?
+# 1. Add actual timestamp of pressing the button?
+# 2. Force 10 score saving if the button was not pressed within the interval?
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -106,17 +106,18 @@ def save_csv(score):
         if isExist:
             df = pd.read_csv(filename, sep=' ',
                              #names = ['timestamp', 'score'],
-                             dtype={'timestamp':int, 'score':int})
+                             dtype={'time': int, 'timestamp':int, 'score':int})
         else:
             df = pd.DataFrame();
-                
-        now = datetime.now()
-        t = now.strftime("%H%M%S")
+        
+        timeIntervalInSeconds = 5
+        record_datetime = datetime.now() - relativedelta(seconds=timeIntervalInSeconds)
+        record_time = record_datetime.strftime("%H%M%S")
         
         # convert from datetime to timestamp
-        ts = round(datetime.timestamp(now))
+        record_ts = int(datetime.timestamp(record_datetime))
         
-        df = df.append({'time': t, 'timestamp': ts, 'score': score}, ignore_index=True)
+        df = df.append({'time': record_time, 'timestamp': record_ts, 'score': score}, ignore_index=True)
         print(df)
         df.to_csv(filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
 

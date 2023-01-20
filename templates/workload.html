@@ -25,13 +25,13 @@
     
         <p> 
         <script type="text/javascript">
-            var timeInterval = 5000;
+            var timeIntervalInMilliseconds = 5000;
             
             function delayedSubmit() {
                 var elapsedTime = Date.now()-timerStart
                                          
-                if (elapsedTime < timeInterval) {               
-                    submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, timeInterval - elapsedTime)
+                if (elapsedTime < timeIntervalInMilliseconds) {
+                    submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, timeIntervalInMilliseconds - elapsedTime)
                 }
                 else {
                     submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, 0)
