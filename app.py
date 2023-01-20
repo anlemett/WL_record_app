@@ -4,8 +4,12 @@ from flask import (Flask, render_template, request, redirect, url_for, session)
 
 from datetime import datetime
 
-
 import pandas as pd
+
+# TODO:
+# 1. Change time and timestamp to the begining of the interval?
+# 2. Add actual timestamp of pressing the button?
+# 3. Force 10 score saving if the button was not pressed within the interval?
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
