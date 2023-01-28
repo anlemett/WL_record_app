@@ -8,8 +8,7 @@ from dateutil.relativedelta import relativedelta
 import pandas as pd
 
 # TODO:
-# 1. Add actual timestamp of pressing the button?
-# 2. Force 10 score saving if the button was not pressed within the interval?
+# 1. Change the datetime object from local timezone to Stockholm timezone
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -90,6 +89,9 @@ def workload():
         elif request.form['submit_button'] == "10":
              print("10")
              save_csv(10)
+        elif request.form['submit_button'] == "0":
+             print("0")
+             save_csv(0)
         else:
             print("else")
 
