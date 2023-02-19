@@ -2,7 +2,7 @@
 <html>
     <head>
         <script type="text/javascript">
-             var timerStart = Date.now();
+            var timerStart = Date.now();
         </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -61,7 +61,7 @@
             }
 
             function delayedSubmit() {
-                var elapsedTime = Date.now()-timerStart
+                var elapsedTime = Date.now() - timerStart
                                          
                 if (elapsedTime < timeIntervalInMilliseconds) {
                     submitTimer = setTimeout(() => {document.getElementById("workloadForm").submit();}, timeIntervalInMilliseconds - elapsedTime)
