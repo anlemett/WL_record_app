@@ -13,8 +13,6 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 OUTPUT_DIR = os.path.join(BASE_DIR, os.path.join('data', 'output'))
 
-SWEDISH_TZ = pytz.timezone("Europe/Stockholm")
-
 app = Flask(__name__)
 app.secret_key = 'qwerwcwdqgfqwefq'
 
@@ -36,19 +34,18 @@ def index():
 
     if request.method == 'POST':
         if request.form['submit_button'] == "Start":
-            print("Start")
+
             addr = request.remote_addr.replace(".", "_" )
 
-            local_datetime = datetime.now()
+            start_local_datetime = datetime.now()
 
-            swedish_datetime = local_datetime.astimezone(SWEDISH_TZ)
+            start_swedish_datetime = start_local_datetime.astimezone(pytz.timezone("Europe/Stockholm"))
 
-            record_datetime = swedish_datetime.strftime("%y%m%d_%H%M%S")
+            start_datetime_str = start_swedish_datetime.strftime("%y%m%d_%H%M%S")
 
-            session['filename'] = addr + '_' + record_datetime + '.csv'
+            session['filename'] = addr + '_' + start_datetime_str + '.csv'
 
-            print("Start", file=sys.stderr, flush=True)
-            print(session['filename'], file=sys.stderr, flush=True)
+            session['start_timestamp'] = start_swedish_datetime.timestamp()
 
         return redirect(url_for('workload'))
     else:
@@ -109,8 +106,20 @@ def workload():
 
 
 def save_csv(score):
+
+    timeIntervalInSeconds = 5
+
     if 'filename' in session:
+
         filename = session['filename']
+        start_timestamp = session['start_timestamp']
+
+        utc_start_datetime = datetime.fromtimestamp(start_timestamp)
+
+        start_swedish_datetime = pytz.utc.localize(utc_start_datetime).astimezone(pytz.timezone("Europe/Stockholm"))
+
+        # I assume no records at midnight (Stockholm time)
+        record_date_str = start_swedish_datetime.strftime("%y%m%d")
 
         print("save_csv", file=sys.stderr, flush=True)
         print(filename, file=sys.stderr, flush=True)
@@ -120,24 +129,16 @@ def save_csv(score):
             df = pd.read_csv(filename, sep=' ',
                              #names = ['timestamp', 'score'],
                              dtype={'date': int, 'time': int, 'timestamp':int, 'score':int})
+            record_datetime = start_swedish_datetime + relativedelta(seconds=timeIntervalInSeconds * len(df))
+            record_time_str = record_datetime.strftime("%H%M%S")
+            record_timestamp = int(record_datetime.timestamp())
+
         else:
             df = pd.DataFrame();
+            record_time_str = start_swedish_datetime.strftime("%H%M%S")
+            record_timestamp = int(start_swedish_datetime.timestamp())
 
-        timeIntervalInSeconds = 5
-
-        # datetime.now() returns local (server) current time
-        local_datetime = datetime.now() - relativedelta(seconds=timeIntervalInSeconds)
-
-        # convert from datetime to timestamp
-        record_ts = int(datetime.timestamp(local_datetime))
-
-        swedish_datetime = local_datetime.astimezone(SWEDISH_TZ)
-
-        record_date = swedish_datetime.strftime("%y%m%d")
-        record_time = swedish_datetime.strftime("%H%M%S")
-
-
-        df = df.append({'date': record_date, 'time': record_time, 'timestamp': record_ts, 'score': score}, ignore_index=True)
+        df = df.append({'date': record_date_str, 'time': record_time_str, 'timestamp': str(record_timestamp), 'score': str(score)}, ignore_index=True)
         print(df)
         df.to_csv(filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
 
