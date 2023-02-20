@@ -98,6 +98,11 @@ def workload():
         print(request.form)
         if request.form['submit_button'] == "Stop":
              print("Stop")
+             session.pop('filename', None)
+             session.pop('time_interval_sec', None)
+             session.pop('pilot_name', None)
+             session.pop('experiment_name', None)
+             
              return redirect(url_for('index'))
 
         if request.form['submit_button'] == "1":
