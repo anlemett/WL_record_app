@@ -26,6 +26,12 @@ label {
   font-size: 15em;
 }
 
+
+.container  {
+  display: inline-flex;
+}
+
+
 .score1 {
   background-color: #4CAF50; /* Green */
   color: white;
@@ -98,6 +104,5 @@ button[disabled]{
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
-  width: 10%;
 }
 
