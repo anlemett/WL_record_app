@@ -38,6 +38,7 @@ def not_found(error):
 def index():
     
     form = forms.ExperimentForm(request.form)
+    
     if request.method == 'POST' and form.validate():
     
     #if request.method == 'POST':
@@ -83,7 +84,7 @@ def start():
 
         return redirect(url_for('workload'))
     else:
-        if 'filename' in session:
+        if 'time_interval_sec' in session:
             return render_template('start_page.html')
         else:
             return redirect(url_for('index'))
@@ -138,7 +139,7 @@ def workload():
         print("workload post, time_interval_sec: ", session['time_interval_sec'])
         return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'), time_int = session['time_interval_sec'])
     else:
-        if 'filename' in session:
+        if 'time_interval_sec' in session:
             print("workload get, time_interval_sec: ", session['time_interval_sec'])
             return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'), time_int = session['time_interval_sec'])
         else:
