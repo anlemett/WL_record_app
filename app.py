@@ -83,8 +83,10 @@ def start():
 
         return redirect(url_for('workload'))
     else:
-
-        return render_template('start_page.html')
+        if 'filename' in session:
+            return render_template('start_page.html')
+        else:
+            return redirect(url_for('index'))
 
 
 @app.route('/workload', methods=['GET', 'POST'])
@@ -136,8 +138,11 @@ def workload():
         print("workload post, time_interval_sec: ", session['time_interval_sec'])
         return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'), time_int = session['time_interval_sec'])
     else:
-        print("workload get, time_interval_sec: ", session['time_interval_sec'])
-        return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'), time_int = session['time_interval_sec'])
+        if 'filename' in session:
+            print("workload get, time_interval_sec: ", session['time_interval_sec'])
+            return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'), time_int = session['time_interval_sec'])
+        else:
+            return redirect(url_for('index'))
 
 
 
@@ -184,3 +189,4 @@ def save_csv(score):
                 
         #print(df)
         df.to_csv(filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
+    
