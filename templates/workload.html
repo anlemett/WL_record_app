@@ -49,12 +49,13 @@
 
 
         <script>
-            var timeIntervalInMilliseconds = 5000;
+            var timeIntervalInSeconds = {{time_int}}
+            var timeIntervalInMilliseconds = timeIntervalInSeconds * 1000;
 
             window.onload = (event) => {
                 document.getElementById("sound").play();
                 submitted = false;
-                setTimeout(forceSubmit,5000);
+                setTimeout(forceSubmit,timeIntervalInMilliseconds);
             };
 
             function forceSubmit() {

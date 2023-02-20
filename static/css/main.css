@@ -1,6 +1,19 @@
 body {
-  color: blue;
+  color: black;
 }
+
+.prompt {
+  color: black;
+  display: inline-block;
+  width: 250px;
+  text-align: right;
+  font-size: 1em;
+}
+
+.errors {
+  color: black;
+}
+
 #demo {
     color: red;
 }

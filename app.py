@@ -4,10 +4,15 @@ import sys
 from flask import (Flask, render_template, request, redirect, url_for, session)
 
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
+from datetime import timedelta
 import pytz
 
 import pandas as pd
+
+import forms
+
+#TEST = True
+TEST = False
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -31,11 +36,38 @@ def not_found(error):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    
+    form = forms.ExperimentForm(request.form)
+    if request.method == 'POST' and form.validate():
+    
+    #if request.method == 'POST':
+        if request.form['submit_button'] == "Submit":
+            
+            session['experiment_name'] = request.form['exname']
+            session['pilot_name'] = request.form['piname']
+            
+            try:
+                time_interval_min = int(request.form['timeint'])
+                session['time_interval_sec'] = time_interval_min * 60
+            except ValueError:
+                session['time_interval_sec'] = 300
+            
+            if TEST:
+                session['time_interval_sec'] = 5
+            
+            return redirect(url_for('start'))
+    else:
+
+        return render_template('index.html', form=form)
+
+
+@app.route('/start', methods=['GET', 'POST'])
+def start():
 
     if request.method == 'POST':
         if request.form['submit_button'] == "Start":
 
-            addr = request.remote_addr.replace(".", "_" )
+            #addr = request.remote_addr.replace(".", "_" )
 
             start_local_datetime = datetime.now()
 
@@ -43,14 +75,16 @@ def index():
 
             start_datetime_str = start_swedish_datetime.strftime("%y%m%d_%H%M%S")
 
-            session['filename'] = addr + '_' + start_datetime_str + '.csv'
+            #session['filename'] = addr + '_' + start_datetime_str + '.csv'
+            session['filename'] = session['experiment_name'] + '_' + session['pilot_name'] + '_' + start_datetime_str + '.csv'
 
             session['start_timestamp'] = start_swedish_datetime.timestamp()
+            print("start, timestamp: ", session['start_timestamp'])
 
         return redirect(url_for('workload'))
     else:
 
-        return render_template('index.html')
+        return render_template('start_page.html')
 
 
 @app.route('/workload', methods=['GET', 'POST'])
@@ -99,22 +133,26 @@ def workload():
         else:
             print("else")
 
-        return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'))
+        print("workload post, time_interval_sec: ", session['time_interval_sec'])
+        return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'), time_int = session['time_interval_sec'])
     else:
-        return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'))
+        print("workload get, time_interval_sec: ", session['time_interval_sec'])
+        return render_template('workload.html', path_to_audio = url_for('static', filename='notification.wav'), time_int = session['time_interval_sec'])
 
 
 
 def save_csv(score):
 
-    timeIntervalInSeconds = 5
+    timeIntervalInSeconds = session['time_interval_sec']
 
     if 'filename' in session:
 
         filename = session['filename']
         start_timestamp = session['start_timestamp']
+        
+        print("save, timestamp: ", start_timestamp)
 
-        utc_start_datetime = datetime.fromtimestamp(start_timestamp)
+        utc_start_datetime = datetime.utcfromtimestamp(start_timestamp)
 
         start_swedish_datetime = pytz.utc.localize(utc_start_datetime).astimezone(pytz.timezone("Europe/Stockholm"))
 
@@ -127,9 +165,9 @@ def save_csv(score):
         isExist = os.path.exists(filename)
         if isExist:
             df = pd.read_csv(filename, sep=' ',
-                             #names = ['timestamp', 'score'],
+                             #names = ['date', 'time', 'timestamp', 'score'],
                              dtype={'date': int, 'time': int, 'timestamp':int, 'score':int})
-            record_datetime = start_swedish_datetime + relativedelta(seconds=timeIntervalInSeconds * len(df))
+            record_datetime = start_swedish_datetime + timedelta(seconds=timeIntervalInSeconds * len(df))
             record_time_str = record_datetime.strftime("%H%M%S")
             record_timestamp = int(record_datetime.timestamp())
 
@@ -137,9 +175,12 @@ def save_csv(score):
             df = pd.DataFrame();
             record_time_str = start_swedish_datetime.strftime("%H%M%S")
             record_timestamp = int(start_swedish_datetime.timestamp())
-
-        df = df.append({'date': record_date_str, 'time': record_time_str, 'timestamp': str(record_timestamp), 'score': str(score)}, ignore_index=True)
-        print(df)
+        
+        df = pd.concat([df, pd.DataFrame({'date': [record_date_str],
+                                'time': [record_time_str],
+                                'timestamp': [str(record_timestamp)],
+                                'score': [str(score)]
+                                })])
+                
+        #print(df)
         df.to_csv(filename, sep=' ', encoding='utf-8', float_format='%.6f', header=True, index=False)
-
-

@@ -17,11 +17,26 @@
     </head>
     <body>
 
-      <form method=post>
+        {% from "formhelpers.html" import render_field %}
+        
+        <form method=post  id="settingForm">
+        
+            {{ render_field(form.exname) }}
+            {{ render_field(form.piname) }}
+            {{ render_field(form.timeint) }}
+            
+            <!--
+            <label for="exname" class="prompt">Experiment name (or number): </label>
+            <input type="text" id="exname" name="exname" value=""><br><br>
+            <label for="piname" class="prompt">Pilot name: </label>
+            <input type="text" id="piname" name="piname" value=""><br><br>
+            <label for="timeint" class="prompt">Time interval (in minutes): </label>
+            <input type="text" id="timeint" name="timeint" value="5"><br><br>
+            -->
 
             <p>
-                <button type="submit" name="submit_button" value="Start" id="start" class="general">
-                    Start
+                <button type="submit" name="submit_button" value="Submit" id="settingSubmit" class="general">
+                    Submit
                 </button>
             </p>
 
