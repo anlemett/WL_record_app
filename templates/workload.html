@@ -29,6 +29,7 @@
 
             <p> <div class='container'>
             <input type="hidden" id="form_hidden_field" name="submit_button" value="">
+            <input type="hidden" id="form_hidden_field_elapsedTime" name="elapsedTime" value=0>
             <button type="submit" onclick="delayedSubmit1(event);"  id="one" class="score1">1</button>
             <button type="submit" onclick="delayedSubmit2(event);" id="two" class="score1"> 2 </button>
             <button type="submit" onclick="delayedSubmit3(event);" id="three" class="score1"> 3 </button>
@@ -64,12 +65,15 @@
             function forceSubmit() {
                 if (!submitted) {
                     document.getElementById("form_hidden_field").value = "0"
+                    document.getElementById("form_hidden_field_elapsedTime").value = timeIntervalInSeconds
                     document.getElementById("workloadForm").submit()
                 }
             }
 
             function delayedSubmit() {
                 var elapsedTime = Date.now() - timerStart
+                
+                document.getElementById("form_hidden_field_elapsedTime").value = Math.round(elapsedTime/1000)
 
                 if (elapsedTime < timeIntervalInMilliseconds) {
                     submitted = true;

@@ -105,39 +105,40 @@ def workload():
              
              return redirect(url_for('index'))
 
+        elapsedTime = request.form['elapsedTime']
         if request.form['submit_button'] == "1":
              print("1")
-             save_csv(1)
+             save_csv(1, elapsedTime)
         elif request.form['submit_button'] == "2":
              print("2")
-             save_csv(2)
+             save_csv(2, elapsedTime)
         elif request.form['submit_button'] == "3":
              print("3")
-             save_csv(3)
+             save_csv(3, elapsedTime)
         elif request.form['submit_button'] == "4":
              print("4")
-             save_csv(4)
+             save_csv(4, elapsedTime)
         elif request.form['submit_button'] == "5":
              print("5")
-             save_csv(5)
+             save_csv(5, elapsedTime)
         elif request.form['submit_button'] == "6":
              print("6")
-             save_csv(6)
+             save_csv(6, elapsedTime)
         elif request.form['submit_button'] == "7":
              print("7")
-             save_csv(7)
+             save_csv(7, elapsedTime)
         elif request.form['submit_button'] == "8":
              print("8")
-             save_csv(8)
+             save_csv(8, elapsedTime)
         elif request.form['submit_button'] == "9":
              print("9")
-             save_csv(9)
+             save_csv(9, elapsedTime)
         elif request.form['submit_button'] == "10":
              print("10")
-             save_csv(10)
+             save_csv(10, elapsedTime)
         elif request.form['submit_button'] == "0":
-             print("0")
-             save_csv(0)
+             print("0", elapsedTime)
+             save_csv(0, elapsedTime)
         else:
             print("else")
 
@@ -152,7 +153,7 @@ def workload():
 
 
 
-def save_csv(score):
+def save_csv(score, elapsedTime):
 
     timeIntervalInSeconds = session['time_interval_sec']
 
@@ -177,7 +178,7 @@ def save_csv(score):
         if isExist:
             df = pd.read_csv(filename, sep=' ',
                              #names = ['date', 'time', 'timestamp', 'score'],
-                             dtype={'date': int, 'time': int, 'timestamp':int, 'score':int})
+                             dtype={'date': int, 'time': int, 'timestamp':int, 'elapsedTime': int, 'score':int})
             record_datetime = start_swedish_datetime + timedelta(seconds=timeIntervalInSeconds * len(df))
             record_time_str = record_datetime.strftime("%H%M%S")
             record_timestamp = int(record_datetime.timestamp())
@@ -190,6 +191,7 @@ def save_csv(score):
         df = pd.concat([df, pd.DataFrame({'date': [record_date_str],
                                 'time': [record_time_str],
                                 'timestamp': [str(record_timestamp)],
+                                'elapsedTime': [str(elapsedTime)],
                                 'score': [str(score)]
                                 })])
                 
