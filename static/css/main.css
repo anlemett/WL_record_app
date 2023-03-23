@@ -2,6 +2,11 @@ body {
   color: black;
 }
 
+img.screen_height {
+  height: 90%;
+  width: auto;
+}
+
 .prompt {
   color: black;
   display: inline-block;
